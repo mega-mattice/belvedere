@@ -2,18 +2,20 @@
 ; Belvedere Installer Script
 ;
 ;	Author:		Matthew Shorts <mshorts@gmail.com> 
-;	Version: 	0.1
+;	Version: 	0.5
 ;	
+;	Updated for Windows 11 compatibility
+;
 
 ;General Application defines
 !define PRODUCT_NAME "Belvedere"
-!define PRODUCT_VERSION "0.3"
+!define PRODUCT_VERSION "0.5"
 !define PRODUCT_PUBLISHER "Lifehacker"
 !define PRODUCT_WEB_SITE "http://lifehacker.com/341950/belvedere-automates-your-self+cleaning-pc"
 ;!define PRODUCT_README "README"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\${PRODUCT_NAME}.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
-!define PRODUCT_UNINST_ROOT_KEY "HKLM"
+!define PRODUCT_UNINST_ROOT_KEY "HKCU"
 
 ;Start Menu Item Defines
 !define PRODUCT_STARTMENU_REGVAL "NSIS:StartMenuDir"
@@ -31,10 +33,10 @@
 VIAddVersionKey ProductName "${PRODUCT_NAME}"
 VIAddVersionKey CompanyName "${PRODUCT_PUBLISHER}"
 VIAddVersionKey FileDescription "${PRODUCT_NAME} Installer"
-VIAddVersionKey FileVersion "0.1"
+VIAddVersionKey FileVersion "0.5"
 VIAddVersionKey LegalCopyright ""
 VIAddVersionKey ProductVersion "${PRODUCT_VERSION}"
-VIProductVersion 1.0.0.0
+VIProductVersion 1.0.0.5
 
 ;Compression options
 CRCCheck on
@@ -72,10 +74,11 @@ BrandingText "${PRODUCT_NAME} ${PRODUCT_VERSION}"
 ;Installation Information
 Name "${PRODUCT_NAME} ${PRODUCT_VERSION}"
 OutFile "install-${PRODUCT_NAME}-${PRODUCT_VERSION}.exe"
-InstallDir "$PROGRAMFILES\${PRODUCT_NAME}"
-InstallDirRegKey HKLM "${PRODUCT_DIR_REGKEY}" ""
+InstallDir "$LOCALAPPDATA\${PRODUCT_NAME}"
+InstallDirRegKey HKCU "${PRODUCT_DIR_REGKEY}" ""
 ShowInstDetails show
 ShowUnInstDetails show
+RequestExecutionLevel user
 
 Section "Installation" secApp
   SetOutPath "$INSTDIR"
@@ -97,7 +100,7 @@ SectionEnd
 ;Post Installation Process
 Section -Post
   WriteUninstaller "$INSTDIR\uninst.exe"
-  WriteRegStr HKLM "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\Belvedere.exe"
+  WriteRegStr HKCU "${PRODUCT_DIR_REGKEY}" "" "$INSTDIR\Belvedere.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "UninstallString" "$INSTDIR\uninst.exe"
   WriteRegStr ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\Belvedere.exe"
@@ -140,6 +143,6 @@ Section Uninstall
   RMDir "$INSTDIR"
 
   DeleteRegKey ${PRODUCT_UNINST_ROOT_KEY} "${PRODUCT_UNINST_KEY}"
-  DeleteRegKey HKLM "${PRODUCT_DIR_REGKEY}"
+  DeleteRegKey HKCU "${PRODUCT_DIR_REGKEY}"
   SetAutoClose true
 SectionEnd
