@@ -1,7 +1,7 @@
 ;
 ; AutoHotkey Version: 1.x
 ; Language:       English
-; Platform:       Windows
+; Platform:       Windows (7, 8, 10, 11)
 ; Author:         Adam Pash <adam.pash@gmail.com>
 ;
 ; Script Function:
@@ -14,6 +14,9 @@ SendMode Input  ; Recommended for new scripts due to its superior speed and reli
 SetWorkingDir %A_ScriptDir%  ; Ensures a consistent starting directory.
 StringCaseSense, On
 SetFormat, float, 0.2
+
+; Windows 11 compatibility settings
+DllCall("SetThreadDpiAwarenessContext", "ptr", -4, "ptr")  ; Enable DPI awareness for Windows 10/11
 GoSub, SetVars
 GoSub, TRAYMENU
 GoSub, MENUBAR
@@ -309,7 +312,7 @@ Loop
 
 SetVars:
 	APPNAME = Belvedere
-	Version = 0.4
+	Version = 0.5
 	AllSubjects = Name||Extension|Size|Date last modified|Date last opened|Date created|
 	NoDefaultSubject = Name|Extension|Size|Date last modified|Date last opened|Date created|
 	NameVerbs = is||is not|matches one of|does not match one of|contains|does not contain|
