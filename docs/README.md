@@ -24,7 +24,7 @@ A quick introduction to Belvedere for new users. Learn:
 
 ### [Installation Guide](installation.md)
 
-Detailed instructions for installing Belvedere on Windows. Covers:
+Detailed instructions for installing Belvedere on all platforms. Covers:
 - System requirements
 - Installation using the installer (recommended)
 - Running from source with AutoHotkey
@@ -60,7 +60,7 @@ Solutions to common problems and issues. Addresses:
 
 ## What is Belvedere?
 
-Belvedere is an automated file management tool for Windows that helps keep your folders organized. It monitors specified folders and automatically performs actions on files based on rules you define.
+Belvedere is an automated file management tool that helps keep your folders organized. It monitors specified folders and automatically performs actions on files based on rules you define.
 
 ### Key Features
 
@@ -69,7 +69,7 @@ Belvedere is an automated file management tool for Windows that helps keep your 
 - **Multiple Conditions**: Combine conditions for precise control
 - **Recycle Bin Management**: Automatically clean up your Recycle Bin
 - **Low Resource Usage**: Runs quietly in the background
-- **Windows 11 Compatible**: Full support for Windows 7, 8, 10, and 11
+- **Cross-Platform**: Works on Windows, macOS, and Linux
 
 ### Common Use Cases
 
@@ -137,11 +137,12 @@ For older versions, some features or instructions may differ.
 ### External Links
 
 - **Main Website**: [Lifehacker Article](http://lifehacker.com/341950/belvedere-automates-your-self+cleaning-pc)
-- **AutoHotkey**: [autohotkey.com](https://www.autohotkey.com/) (if running from source)
+- **Python**: [python.org](https://www.python.org/) (for installation)
 
 ### Related Documentation
 
-- **Windows 11 Compatibility**: See [WINDOWS11_COMPATIBILITY.md](../WINDOWS11_COMPATIBILITY.md) in the repository root for technical details about Windows 11 support
+- **Running Belvedere**: See [PYTHON_VERSION.md](../PYTHON_VERSION.md) in the repository root for platform-specific information
+- **Implementation Details**: See [IMPLEMENTATION_SUMMARY.md](../IMPLEMENTATION_SUMMARY.md) for technical details
 
 ## Quick Reference
 
@@ -174,9 +175,10 @@ For older versions, some features or instructions may differ.
 
 ### Important Locations
 
-- **Installation Folder**: `%LOCALAPPDATA%\Belvedere`
-- **Rules File**: `%LOCALAPPDATA%\Belvedere\rules.ini`
-- **Startup Folder**: `%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup`
+- **Configuration Folder**: 
+  - Linux/macOS: `~/.config/belvedere/`
+  - Windows: `%USERPROFILE%\.belvedere\`
+- **Rules File**: `rules.json` in configuration folder
 
 ### Keyboard Shortcuts
 

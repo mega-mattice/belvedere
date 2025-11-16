@@ -1,150 +1,253 @@
 # Belvedere Installation Guide
 
-This guide will walk you through installing Belvedere on your Windows system.
+This guide will walk you through installing Belvedere on your system.
 
 ## System Requirements
 
 Before installing Belvedere, ensure your system meets the following requirements:
 
-- **Operating System**: Windows 7, 8, 10, or 11
-- **Disk Space**: Approximately 5 MB of free disk space
-- **AutoHotkey** (optional): AutoHotkey v1.1 or later is only required if you plan to run the .ahk script directly
+- **Operating System**: Windows 7+, macOS 10.14+, or Linux (any modern distribution)
+- **Python**: Python 3.8 or later
+- **Display**: Graphical desktop environment with system tray support
+- **Disk Space**: Approximately 300 MB (including dependencies)
 
 ## Installation Methods
 
-### Method 1: Using the Installer (Recommended)
+### Method 1: Using pip (Recommended)
 
 This is the easiest way to install Belvedere.
 
-1. **Download the Installer**
-   - Download the latest Belvedere installer from the [releases page](https://github.com/mega-mattice/belvedere/releases)
-   - Look for the file named `Belvedere-Setup-0.5.exe` (or latest version)
+1. **Install Python** (if not already installed)
+   - **Windows**: Download from [python.org](https://www.python.org/downloads/)
+   - **macOS**: `brew install python` or download from [python.org](https://www.python.org/downloads/)
+   - **Linux**: Use your package manager (e.g., `sudo apt install python3 python3-pip`)
 
-2. **Run the Installer**
-   - Double-click the downloaded installer file
-   - Windows may show a security warning. Click "More info" and then "Run anyway" if prompted
+2. **Install Belvedere**
+   ```bash
+   # Clone or download the repository
+   git clone https://github.com/mega-mattice/belvedere.git
+   cd belvedere
    
-3. **Follow Installation Wizard**
-   - Click "Next" to begin the installation process
-   - Choose the installation directory (default is recommended: `%LOCALAPPDATA%\Belvedere`)
-   - Select Start Menu folder options
-   - Choose whether to create desktop shortcuts
-   - Click "Install" to begin the installation
+   # Install as a package
+   pip install -e .
+   ```
 
-4. **Complete Installation**
-   - Optionally, check "Run Belvedere" to launch it immediately
-   - Click "Finish" to exit the installer
+3. **Run Belvedere**
+   ```bash
+   belvedere
+   ```
 
 ### Method 2: Running from Source
 
-If you want to run Belvedere from the source code:
+If you want to run Belvedere without installing:
 
-1. **Install AutoHotkey**
-   - Download AutoHotkey v1.1 from [autohotkey.com](https://www.autohotkey.com/)
-   - Install AutoHotkey on your system
+1. **Install Python** (see Method 1)
 
-2. **Download Belvedere Source**
-   - Clone or download the Belvedere repository from GitHub
-   - Extract the files to a folder of your choice
+2. **Download Belvedere**
+   ```bash
+   git clone https://github.com/mega-mattice/belvedere.git
+   cd belvedere
+   ```
 
-3. **Run Belvedere Script**
-   - Navigate to the Belvedere folder
-   - Double-click `Belvedere.ahk` to run the application
+3. **Install Dependencies**
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-## Windows 11 Specific Instructions
+4. **Run Belvedere**
+   ```bash
+   python belvedere.py
+   # Or use the helper script
+   python run_belvedere.py
+   ```
 
-Windows 11 users should note the following:
+## Platform-Specific Instructions
 
-### Installation Location
-- Belvedere installs to `%LOCALAPPDATA%\Belvedere` by default (user-level installation)
-- This location does not require administrator privileges
-- Each user account can have its own Belvedere installation
+### Windows
 
-### High-DPI Display Support
-- Belvedere includes native support for high-DPI displays (4K monitors, etc.)
-- The application will automatically scale correctly on high-resolution screens
-- No additional configuration is needed
+1. **Install Python**
+   - Download the installer from [python.org](https://www.python.org/downloads/)
+   - During installation, check "Add Python to PATH"
+   - Verify installation: `python --version`
 
-### Security and UAC
-- The installer uses user-level installation (no admin rights required)
-- Belvedere will not trigger UAC (User Account Control) prompts during normal operation
-- Registry keys are stored in HKEY_CURRENT_USER (user-level) rather than HKEY_LOCAL_MACHINE
+2. **Install Belvedere** (see Method 1 or 2 above)
 
-## Upgrading from Previous Versions
+3. **Run at Startup** (optional)
+   - Press `Windows + R`
+   - Type `shell:startup` and press Enter
+   - Create a shortcut to Belvedere in this folder
+   - Or create a batch file with: `python -m belvedere.main`
 
-If you have an older version of Belvedere installed:
+### macOS
 
-1. **Backup Your Rules**
-   - Navigate to your old Belvedere installation folder
-   - Copy the `rules.ini` file to a safe location
-   - This file contains all your custom rules and settings
+1. **Install Python**
+   ```bash
+   # Using Homebrew (recommended)
+   brew install python
+   
+   # Or download from python.org
+   ```
 
-2. **Install New Version**
-   - Run the new installer as described above
-   - The installer will detect and remove the old version
+2. **Install Belvedere** (see Method 1 or 2 above)
 
-3. **Restore Your Rules** (if needed)
-   - If your rules don't automatically transfer:
-   - Navigate to the new installation folder (usually `%LOCALAPPDATA%\Belvedere`)
-   - Replace the new `rules.ini` with your backed-up version
+3. **Run at Login** (optional)
+   - System Preferences → Users & Groups → Login Items
+   - Click "+" and add Belvedere
+   - Or create a Launch Agent plist file
+
+### Linux
+
+1. **Install Python and Dependencies**
+   ```bash
+   # Debian/Ubuntu
+   sudo apt update
+   sudo apt install python3 python3-pip
+   
+   # Fedora
+   sudo dnf install python3 python3-pip
+   
+   # Arch
+   sudo pacman -S python python-pip
+   ```
+
+2. **Install System Libraries** (for PySide6)
+   ```bash
+   # Debian/Ubuntu
+   sudo apt install libgl1-mesa-glx libegl1-mesa libxkbcommon-x11-0
+   
+   # Fedora
+   sudo dnf install mesa-libGL mesa-libEGL libxkbcommon-x11
+   ```
+
+3. **Install Belvedere** (see Method 1 or 2 above)
+
+4. **Run at Startup** (optional)
+   - Create a desktop entry in `~/.config/autostart/`
+   - Or add to your desktop environment's startup applications
+
+## Verifying Installation
+
+After installation, verify that Belvedere is working:
+
+1. **Start Belvedere**
+   ```bash
+   belvedere
+   # Or if running from source:
+   python belvedere.py
+   ```
+
+2. **Check System Tray**
+   - Look for the Belvedere icon in your system tray
+   - Right-click the icon to see the menu
+
+3. **Open the GUI**
+   - Click the system tray icon or select "Manage" from the menu
+   - The main window should appear
+
+## Troubleshooting Installation Issues
+
+### Python Not Found
+
+- **Problem**: `python: command not found` or similar error
+- **Solution**: 
+  - Ensure Python 3.8+ is installed
+  - On some systems, use `python3` instead of `python`
+  - Add Python to your PATH environment variable
+
+### Import Errors
+
+- **Problem**: `ModuleNotFoundError` for PySide6, watchdog, or send2trash
+- **Solution**: 
+  - Install dependencies: `pip install -r requirements.txt`
+  - Use the correct pip: `pip3` instead of `pip` on some systems
+  - Try: `python -m pip install -r requirements.txt`
+
+### Display Connection Error
+
+- **Problem**: "Cannot connect to display" or similar
+- **Solution**: 
+  - Belvedere requires a graphical desktop environment
+  - Ensure you're not running in a headless environment
+  - On Linux, ensure X11 or Wayland is running
+
+### Permission Errors
+
+- **Problem**: Permission denied when installing
+- **Solution**: 
+  - Use `--user` flag: `pip install --user -e .`
+  - Or use a virtual environment (recommended)
+  - Don't use `sudo pip` - use virtual environments instead
+
+### System Tray Not Showing (Linux)
+
+- **Problem**: Icon doesn't appear in system tray
+- **Solution**: 
+  - Ensure your desktop environment supports system tray icons
+  - Install system tray extensions if needed (GNOME, etc.)
+  - Some Wayland compositors have limited tray support - try X11
+
+## Virtual Environment (Recommended)
+
+Using a virtual environment prevents dependency conflicts:
+
+```bash
+# Create virtual environment
+python -m venv belvedere-env
+
+# Activate it
+# Windows:
+belvedere-env\Scripts\activate
+# macOS/Linux:
+source belvedere-env/bin/activate
+
+# Install Belvedere
+pip install -e .
+
+# Run Belvedere
+belvedere
+```
 
 ## Uninstallation
 
 To uninstall Belvedere:
 
-1. **Using Windows Settings**
-   - Open Windows Settings (Windows key + I)
-   - Go to "Apps" or "Apps & features"
-   - Find "Belvedere" in the list
-   - Click "Uninstall" and follow the prompts
+### If Installed via pip
 
-2. **Using Control Panel**
-   - Open Control Panel
-   - Go to "Programs and Features" or "Uninstall a program"
-   - Select "Belvedere" from the list
-   - Click "Uninstall" and follow the prompts
+```bash
+pip uninstall belvedere
+```
 
-3. **Manual Cleanup** (optional)
-   - If you want to remove all settings:
-   - Delete the folder: `%LOCALAPPDATA%\Belvedere`
-   - Delete registry keys under: `HKEY_CURRENT_USER\Software\Microsoft\Windows\CurrentVersion\Uninstall\Belvedere`
+### If Running from Source
 
-## Troubleshooting Installation Issues
+Simply delete the Belvedere directory.
 
-### Installer Won't Run
-- **Problem**: Installer shows security warning or won't run
-- **Solution**: Right-click the installer, select "Properties", check "Unblock", then click "OK" and try again
+### Remove Configuration Files (Optional)
 
-### Installation Fails
-- **Problem**: Installer reports an error during installation
-- **Solution**: 
-  - Ensure you have write permissions to `%LOCALAPPDATA%`
-  - Close any running instances of Belvedere
-  - Temporarily disable antivirus software and try again
+```bash
+# Linux/macOS
+rm -rf ~/.config/belvedere/
+rm -rf ~/.belvedere/
 
-### AutoHotkey Script Won't Run
-- **Problem**: Double-clicking Belvedere.ahk does nothing
-- **Solution**: 
-  - Ensure AutoHotkey v1.1 or later is installed
-  - Right-click Belvedere.ahk and select "Run Script"
-  - Check that .ahk files are associated with AutoHotkey
-
-## Post-Installation
-
-After installation is complete:
-
-1. **Configure Startup** (optional)
-   - To run Belvedere automatically when Windows starts
-   - See the [Getting Started Guide](getting-started.md) for instructions
-
-2. **Create Your First Rule**
-   - Follow the [Usage Guide](usage.md) to create your first automation rule
-
-3. **Explore Features**
-   - Check out the [Getting Started Guide](getting-started.md) for a quick overview
+# Windows
+# Delete: %USERPROFILE%\.belvedere\
+```
 
 ## Next Steps
 
-- [Getting Started Guide](getting-started.md) - Quick start for new users
-- [Usage Guide](usage.md) - Detailed guide on using Belvedere
-- [Troubleshooting](troubleshooting.md) - Common issues and solutions
+After installation is complete:
+
+1. **Configure Your First Rule**
+   - Follow the [Getting Started Guide](getting-started.md)
+
+2. **Explore Features**
+   - Check out the [Usage Guide](usage.md)
+
+3. **Set Up Automatic Startup** (optional)
+   - Follow platform-specific instructions above
+
+4. **Get Help**
+   - Visit the [Troubleshooting Guide](troubleshooting.md) if you encounter issues
+
+---
+
+**Happy organizing!** 🗂️

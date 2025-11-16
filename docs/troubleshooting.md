@@ -88,37 +88,37 @@ This guide helps you resolve common issues with Belvedere.
 
 ### Belvedere Won't Start
 
-**Symptoms**: Double-clicking Belvedere.exe does nothing.
+**Symptoms**: Running Belvedere does nothing or shows an error.
 
 **Solutions**:
 
 1. **Check if Already Running**:
    - Look for Belvedere icon in system tray
-   - Check Task Manager for Belvedere.exe process
+   - Check Task Manager/Activity Monitor for belvedere process
    - If running, right-click tray icon to show window
 
-2. **Check AutoHotkey Installation** (for .ahk version):
-   - Ensure AutoHotkey v1.1+ is installed
-   - Download from [autohotkey.com](https://www.autohotkey.com/)
+2. **Check Python Installation**:
+   - Ensure Python 3.8+ is installed
+   - Download from [python.org](https://www.python.org/)
    - Reinstall if necessary
 
 3. **Run from Command Line**:
    - Open Command Prompt
    - Navigate to Belvedere folder
-   - Run: `Belvedere.exe`
+   - Run: `python belvedere.py`
    - Check for error messages
 
 4. **Check Rules File**:
-   - Corrupted `rules.ini` may prevent startup
-   - Rename `rules.ini` to `rules.ini.bak`
+   - Corrupted `rules.json` may prevent startup
+   - Rename `rules.json` to `rules.json.bak`
    - Try starting Belvedere
    - If it works, rules file was corrupted
 
 5. **Reinstall Belvedere**:
-   - Backup your `rules.ini` file
+   - Backup your `rules.json` file
    - Uninstall Belvedere
    - Reinstall
-   - Restore `rules.ini`
+   - Restore `rules.json`
 
 ### No System Tray Icon
 
@@ -158,7 +158,7 @@ This guide helps you resolve common issues with Belvedere.
 2. **Create Startup Shortcut**:
    - Right-click in Startup folder
    - Select New → Shortcut
-   - Browse to `%LOCALAPPDATA%\Belvedere\Belvedere.exe`
+   - Browse to `python -m belvedere.main`
    - Click Finish
 
 3. **Check Task Manager Startup**:
@@ -432,7 +432,7 @@ This guide helps you resolve common issues with Belvedere.
    - Should be included with v0.5+
 
 2. **Override DPI Settings** (if needed):
-   - Right-click Belvedere.exe
+   - Right-click python script
    - Select Properties
    - Click "Compatibility" tab
    - Click "Change high DPI settings"
@@ -506,8 +506,8 @@ This guide helps you resolve common issues with Belvedere.
    - Try opening rules window
 
 3. **Check Rules File**:
-   - Corrupted rules.ini may prevent window opening
-   - Rename rules.ini to rules.ini.bak
+   - Corrupted rules.json may prevent window opening
+   - Rename rules.json to rules.json.bak
    - Restart Belvedere
    - Try opening rules window
 
@@ -519,12 +519,12 @@ This guide helps you resolve common issues with Belvedere.
 
 1. **Check Rules File**:
    - Navigate to `%LOCALAPPDATA%\Belvedere`
-   - Look for `rules.ini`
+   - Look for `rules.json`
    - If missing, rules were deleted
    - Restore from backup if available
 
 2. **Restore from Backup**:
-   - If you have a backup of rules.ini
+   - If you have a backup of rules.json
    - Close Belvedere
    - Copy backup to installation folder
    - Restart Belvedere
@@ -532,7 +532,7 @@ This guide helps you resolve common issues with Belvedere.
 3. **Check Correct Installation Folder**:
    - Belvedere may have installed to different location
    - Search for other Belvedere folders
-   - Copy rules.ini from old location
+   - Copy rules.json from old location
 
 ### Error Messages
 
@@ -572,11 +572,11 @@ If you're still experiencing issues:
    - [Usage Guide](usage.md)
 
 2. **Backup Your Configuration**:
-   - Always backup `rules.ini` before troubleshooting
+   - Always backup `rules.json` before troubleshooting
    - Located in `%LOCALAPPDATA%\Belvedere`
 
 3. **Test with Fresh Install**:
-   - Backup rules.ini
+   - Backup rules.json
    - Uninstall completely
    - Delete `%LOCALAPPDATA%\Belvedere`
    - Reinstall
@@ -598,7 +598,7 @@ If you're still experiencing issues:
 ### Best Practices
 
 1. **Backup Rules Regularly**:
-   - Copy rules.ini to safe location
+   - Copy rules.json to safe location
    - Before major changes
    - Before updates
 
