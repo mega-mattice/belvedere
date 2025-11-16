@@ -1,0 +1,44 @@
+[project]
+name = "belvedere"
+version = "0.6.0"
+description = "Automated file management application"
+authors = [
+    {name = "Adam Pash", email = "adam.pash@gmail.com"}
+]
+license = "GPL-3.0-or-later"
+readme = "README.md"
+requires-python = ">=3.9,<3.14"
+keywords = ["file-management", "automation", "desktop"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+]
+dependencies = [
+    "PySide6>=6.6.0",
+    "watchdog>=3.0.0",
+    "send2trash>=1.8.2",
+]
+
+[project.urls]
+Homepage = "https://github.com/mega-mattice/belvedere"
+Repository = "https://github.com/mega-mattice/belvedere"
+
+[project.scripts]
+belvedere = "belvedere.main:main"
+
+[tool.poetry]
+packages = [{include = "belvedere"}]
+
+[tool.poetry.group.dev.dependencies]
+pyinstaller = "^6.0.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
