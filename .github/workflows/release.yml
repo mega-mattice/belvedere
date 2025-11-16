@@ -4,6 +4,9 @@ on:
   release:
     types: [published]
 
+permissions:
+  contents: write
+
 jobs:
   build-windows:
     name: Build Windows Executable
@@ -28,7 +31,7 @@ jobs:
       
       - name: Build executable with PyInstaller
         run: |
-          poetry run pyinstaller belvedere.spec
+          poetry run pyinstaller belvedere.spec --noconfirm
       
       - name: Rename executable
         run: |
@@ -62,7 +65,7 @@ jobs:
       
       - name: Build executable with PyInstaller
         run: |
-          poetry run pyinstaller belvedere.spec
+          poetry run pyinstaller belvedere.spec --noconfirm
       
       - name: Create macOS archive
         run: |
@@ -97,7 +100,7 @@ jobs:
       
       - name: Build executable with PyInstaller
         run: |
-          poetry run pyinstaller belvedere.spec
+          poetry run pyinstaller belvedere.spec --noconfirm
       
       - name: Create Linux archive
         run: |
