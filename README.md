@@ -20,31 +20,53 @@ Belvedere sets up rules for taking actions on files (move, copy, delete, etc) ba
 
 ## Installation
 
+### For End Users (Windows)
+
+Download the latest Windows executable from the [Releases](https://github.com/mega-mattice/belvedere/releases) page. No Python installation required!
+
+### For Developers
+
 1. **Install Python** (if not already installed)
+   - Python 3.9 or later required
    - Download from [python.org](https://www.python.org/downloads/)
    - Or use your system's package manager
 
-2. **Install Belvedere**
+2. **Install Poetry** (recommended)
+   ```bash
+   pip install poetry
+   ```
+
+3. **Install Belvedere**
    ```bash
    # Clone or download the repository
    git clone https://github.com/mega-mattice/belvedere.git
    cd belvedere
    
-   # Install dependencies
+   # Install dependencies with Poetry (recommended)
+   poetry install
+   
+   # Or install with pip
    pip install -r requirements.txt
    
    # Or install as a package
    pip install -e .
    ```
 
-3. **Run Belvedere**
+4. **Run Belvedere**
    ```bash
+   # Using Poetry
+   poetry run belvedere
+   
    # Using the launcher script
    python belvedere.py
    
    # Or if installed as a package
    belvedere
    ```
+
+## Building from Source
+
+For developers who want to build executables, see [BUILD.md](BUILD.md) for detailed build instructions.
 
 ## Documentation
 
