@@ -44,3 +44,8 @@ Thumbs.db
 # Belvedere config
 rules.json
 .belvedere/
+
+# Testing
+.coverage
+htmlcov/
+.pytest_cache/
