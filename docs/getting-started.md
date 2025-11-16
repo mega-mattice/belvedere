@@ -4,7 +4,7 @@ Welcome to Belvedere! This guide will help you get up and running quickly with a
 
 ## What is Belvedere?
 
-Belvedere is an automated file management tool for Windows that allows you to set up rules for organizing your files. It can automatically move, copy, delete, or rename files based on:
+Belvedere is an automated file management tool that allows you to set up rules for organizing your files. It can automatically move, copy, delete, or rename files based on:
 
 - File name patterns
 - File extensions

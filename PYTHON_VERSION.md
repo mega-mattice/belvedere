@@ -1,4 +1,4 @@
-# Running Belvedere (Python Version)
+# Running Belvedere
 
 ## Prerequisites
 
@@ -62,13 +62,13 @@ python test_belvedere.py
 - System tray icon appears in the menu bar
 
 ### Windows
-- Works exactly like the original AutoHotkey version
+- Works exactly as expected on all Windows versions (7, 8, 10, 11)
 - System tray icon appears in the notification area
 - Can be set to run at startup by adding to the Startup folder
 
 ## Features
 
-All features from the AutoHotkey version are preserved:
+Belvedere includes all file management features:
 
 - **File Monitoring**: Automatically watches folders for changes
 - **Rule-Based Actions**: Define conditions and actions for files
@@ -96,13 +96,3 @@ sudo apt-get install libgl1-mesa-glx libegl1-mesa libxkbcommon-x11-0
 
 ### Performance
 If the application uses too much CPU, increase the sleep time in Preferences (default is 5000 milliseconds = 5 seconds).
-
-## Migrating from AutoHotkey Version
-
-The Python version uses JSON configuration instead of INI files. To migrate:
-
-1. Export your rules from the AutoHotkey version (or note them down)
-2. Install and run the Python version
-3. Recreate your rules using the GUI
-
-The rule creation interface is nearly identical to the AutoHotkey version.
