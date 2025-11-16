@@ -26,9 +26,6 @@ venv/
 ENV/
 env/
 
-# Poetry
-poetry.lock
-
 # PyInstaller
 *.spec.backup
 *.spec~
