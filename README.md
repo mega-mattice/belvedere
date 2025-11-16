@@ -1,6 +1,9 @@
 Belvedere
 =========
 
+[![Lint](https://github.com/mega-mattice/belvedere/actions/workflows/lint.yml/badge.svg)](https://github.com/mega-mattice/belvedere/actions/workflows/lint.yml)
+[![Test](https://github.com/mega-mattice/belvedere/actions/workflows/test.yml/badge.svg)](https://github.com/mega-mattice/belvedere/actions/workflows/test.yml)
+
 Belvedere sets up rules for taking actions on files (move, copy, delete, etc) based on the name of a file, its extension, size, age, and more.
 
 **Note:** Belvedere is built with Python for cross-platform compatibility and works on Windows, macOS, and Linux.
