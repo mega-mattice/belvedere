@@ -2,6 +2,23 @@
 
 This document describes how to build Belvedere for distribution.
 
+## Automated Releases (Recommended)
+
+Belvedere uses GitHub Actions to automatically build executables for all platforms when a new release is published:
+
+1. Create a new release on GitHub (via the Releases page or `gh release create`)
+2. The workflow automatically builds executables for:
+   - Windows (`.exe`)
+   - macOS (`.zip`)
+   - Linux (`.tar.gz`)
+3. Built executables are automatically uploaded to the release
+
+See `.github/workflows/release.yml` for the workflow configuration.
+
+## Manual Building
+
+For local development and testing, you can build manually:
+
 ## Prerequisites
 
 - Python 3.9 or later (up to 3.13)
