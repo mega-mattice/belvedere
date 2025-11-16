@@ -91,6 +91,7 @@ class FileMonitor:
         self.confirm_callback = confirm_callback
         self.observer = Observer()
         self.handlers = {}
+        self.watches = {}  # Store watch handles
         self.running = False
     
     def add_folder(self, folder_path: str, rules: Dict[str, Any], recursive: bool = False):
@@ -108,8 +109,9 @@ class FileMonitor:
             folder_path, rules, self.rule_engine, self.confirm_callback
         )
         
+        watch = self.observer.schedule(handler, folder_path, recursive=recursive)
         self.handlers[folder_path] = handler
-        self.observer.schedule(handler, folder_path, recursive=recursive)
+        self.watches[folder_path] = watch
     
     def remove_folder(self, folder_path: str):
         """Remove a folder from monitoring.
@@ -118,10 +120,10 @@ class FileMonitor:
             folder_path: Path to the folder.
         """
         if folder_path in self.handlers:
-            # Unschedule all watches for this folder
-            for watch in list(self.observer._watches.values()):
-                if watch.path == folder_path:
-                    self.observer.unschedule(watch)
+            # Unschedule the watch using the stored watch handle
+            if folder_path in self.watches:
+                self.observer.unschedule(self.watches[folder_path])
+                del self.watches[folder_path]
             del self.handlers[folder_path]
     
     def update_rules(self, folder_path: str, rules: Dict[str, Any]):
