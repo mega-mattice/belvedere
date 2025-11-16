@@ -505,14 +505,18 @@ Right-click the Belvedere icon in the system tray to access:
 
 ## Rules File Format
 
-Belvedere stores all rules in a file called `rules.ini` in the installation directory.
+Belvedere stores all rules in a JSON file in your user configuration directory:
+- **Linux/macOS**: `~/.config/belvedere/rules.json`
+- **Windows**: `%USERPROFILE%\.belvedere\rules.json`
 
 ### Backup Your Rules
 
 To backup your configuration:
 
-1. Navigate to Belvedere installation folder (usually `%LOCALAPPDATA%\Belvedere`)
-2. Copy `rules.ini` to a safe location
+1. Locate your configuration directory:
+   - Linux/macOS: `~/.config/belvedere/`
+   - Windows: `%USERPROFILE%\.belvedere\`
+2. Copy `rules.json` to a safe location
 3. Store the backup securely
 
 ### Restore Rules
@@ -520,20 +524,20 @@ To backup your configuration:
 To restore from backup:
 
 1. Close Belvedere completely
-2. Navigate to installation folder
-3. Replace `rules.ini` with your backup
+2. Navigate to configuration directory
+3. Replace `rules.json` with your backup
 4. Restart Belvedere
 
 ### Sharing Rules
 
 You can share your rules configuration:
 
-1. Copy your `rules.ini` file
+1. Copy your `rules.json` file from configuration directory
 2. Share it with others
-3. They can replace their `rules.ini` with yours
+3. They can place it in their configuration directory
 4. Restart Belvedere to load new rules
 
-**Note**: Ensure folder paths exist on the target system, or edit paths in the .ini file.
+**Note**: Ensure folder paths exist on the target system, or edit paths in the JSON file.
 
 ## Best Practices
 
@@ -570,7 +574,7 @@ You can share your rules configuration:
 1. **Check Results**: Regularly verify rules are working as expected
 2. **Update Rules**: Modify rules as your needs change
 3. **Clean Up**: Remove unused rules
-4. **Backup Configuration**: Regularly backup your `rules.ini` file
+4. **Backup Configuration**: Regularly backup your `rules.json` file
 
 ## Advanced Tips
 

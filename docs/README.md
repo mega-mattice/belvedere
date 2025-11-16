@@ -26,10 +26,10 @@ A quick introduction to Belvedere for new users. Learn:
 
 Detailed instructions for installing Belvedere on all platforms. Covers:
 - System requirements
-- Installation using the installer (recommended)
-- Running from source with AutoHotkey
-- Windows 11 specific instructions
-- Upgrading from previous versions
+- Installation using pip (recommended)
+- Running from source with Python
+- Platform-specific instructions
+- Upgrading
 - Uninstallation
 
 **Best for**: Users installing or upgrading Belvedere.
