@@ -1,0 +1,110 @@
+name: Build and Release
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  build-windows:
+    name: Build Windows Executable
+    runs-on: windows-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install Poetry
+        run: |
+          pip install poetry
+      
+      - name: Install dependencies
+        run: |
+          poetry install
+      
+      - name: Build executable with PyInstaller
+        run: |
+          poetry run pyinstaller belvedere.spec
+      
+      - name: Rename executable
+        run: |
+          Rename-Item -Path "dist/belvedere.exe" -NewName "belvedere-windows.exe"
+      
+      - name: Upload Windows executable to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./dist/belvedere-windows.exe
+
+  build-macos:
+    name: Build macOS Executable
+    runs-on: macos-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install Poetry
+        run: |
+          pip install poetry
+      
+      - name: Install dependencies
+        run: |
+          poetry install
+      
+      - name: Build executable with PyInstaller
+        run: |
+          poetry run pyinstaller belvedere.spec
+      
+      - name: Create macOS archive
+        run: |
+          cd dist
+          zip -r belvedere-macos.zip belvedere
+      
+      - name: Upload macOS executable to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./dist/belvedere-macos.zip
+
+  build-linux:
+    name: Build Linux Executable
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install Poetry
+        run: |
+          pip install poetry
+      
+      - name: Install dependencies
+        run: |
+          poetry install
+      
+      - name: Build executable with PyInstaller
+        run: |
+          poetry run pyinstaller belvedere.spec
+      
+      - name: Create Linux archive
+        run: |
+          cd dist
+          tar -czf belvedere-linux.tar.gz belvedere
+      
+      - name: Upload Linux executable to release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: ./dist/belvedere-linux.tar.gz
