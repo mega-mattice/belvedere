@@ -116,7 +116,7 @@ To make Belvedere start automatically when Windows boots:
 2. **Add Belvedere**
    - Right-click in the Startup folder
    - Select "New" → "Shortcut"
-   - Browse to Belvedere.exe (usually in `%LOCALAPPDATA%\Belvedere`)
+   - Create a shortcut to run Belvedere at startup
    - Click "Finish"
 
 Now Belvedere will start automatically when you log in to Windows.
