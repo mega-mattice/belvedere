@@ -64,9 +64,25 @@ For detailed installation instructions, including Windows 11 specific informatio
 Comprehensive documentation is available in the [docs](docs/) folder:
 
 - **[Getting Started Guide](docs/getting-started.md)** - Quick introduction for new users
-- **[Installation Guide](docs/installation.md)** - Detailed installation instructions
+- **[Installation Guide](docs/installation.md)** - Detailed installation instructions (AutoHotkey version)
 - **[Usage Guide](docs/usage.md)** - Complete feature reference and best practices
 - **[Troubleshooting Guide](docs/troubleshooting.md)** - Solutions to common issues
+
+### Python Version Documentation
+
+- **[Python Version Guide](PYTHON_VERSION.md)** - Running and using the Python version
+- **[Version Comparison](VERSION_COMPARISON.md)** - Detailed comparison of AutoHotkey vs Python versions
+
+## Features
+
+- **File Monitoring**: Automatically watches specified folders for file changes
+- **Rule-Based Actions**: Define conditions and actions for file management
+- **Multiple Conditions**: Combine conditions with ALL or ANY matching
+- **File Attributes**: Match on name, extension, size, creation date, modification date, access date
+- **Actions**: Move, Copy, Rename, Delete, Send to Recycle Bin, Open
+- **Recycle Bin Management**: Automatically manage recycle bin contents
+- **System Tray**: Runs quietly in the background
+- **Cross-Platform** (Python version): Works on Windows, macOS, and Linux
 
 ## Additional Information
 
