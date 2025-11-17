@@ -230,7 +230,7 @@ For older versions, some features or instructions may differ.
 
 ### Important Locations
 
-- **Configuration Folder**: 
+- **Configuration Folder**:
   - Linux/macOS: `~/.config/belvedere/`
   - Windows: `%USERPROFILE%\.belvedere\`
 - **Rules File**: `rules.json` in configuration folder

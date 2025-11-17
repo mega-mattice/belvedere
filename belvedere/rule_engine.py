@@ -9,9 +9,10 @@ This module contains the logic for:
 
 import os
 import shutil
-from pathlib import Path
 from datetime import datetime, timedelta
+from pathlib import Path
 from typing import Any, Dict, Optional
+
 import send2trash
 
 
@@ -35,11 +36,11 @@ class RuleEngine:
         if not file_path.exists() or not file_path.is_file():
             return False
 
-        conditions = rule.get('conditions', [])
+        conditions = rule.get("conditions", [])
         if not conditions:
             return False
 
-        match_type = rule.get('match_type', 'ALL')
+        match_type = rule.get("match_type", "ALL")
 
         results = []
         for condition in conditions:
@@ -47,13 +48,13 @@ class RuleEngine:
             results.append(result)
 
             # Short-circuit evaluation
-            if match_type == 'ANY' and result:
+            if match_type == "ANY" and result:
                 return True
-            elif match_type == 'ALL' and not result:
+            elif match_type == "ALL" and not result:
                 return False
 
         # Final evaluation
-        if match_type == 'ALL':
+        if match_type == "ALL":
             return all(results)
         else:  # ANY
             return any(results)
@@ -68,10 +69,10 @@ class RuleEngine:
         Returns:
             True if condition matches, False otherwise.
         """
-        subject_type = condition.get('subject')
-        verb = condition.get('verb')
-        obj = condition.get('object')
-        units = condition.get('units')
+        subject_type = condition.get("subject")
+        verb = condition.get("verb")
+        obj = condition.get("object")
+        units = condition.get("units")
 
         # Get the subject value from the file
         subject_value = self._get_subject_value(file_path, subject_type)
@@ -89,23 +90,22 @@ class RuleEngine:
         Returns:
             The attribute value.
         """
-        if subject_type == 'Name':
+        if subject_type == "Name":
             return file_path.stem
-        elif subject_type == 'Extension':
-            return file_path.suffix.lstrip('.').lower()
-        elif subject_type == 'Size':
+        elif subject_type == "Extension":
+            return file_path.suffix.lstrip(".").lower()
+        elif subject_type == "Size":
             return file_path.stat().st_size
-        elif subject_type == 'Date last modified':
+        elif subject_type == "Date last modified":
             return datetime.fromtimestamp(file_path.stat().st_mtime)
-        elif subject_type == 'Date last opened':
+        elif subject_type == "Date last opened":
             return datetime.fromtimestamp(file_path.stat().st_atime)
-        elif subject_type == 'Date created':
+        elif subject_type == "Date created":
             return datetime.fromtimestamp(file_path.stat().st_ctime)
         else:
             return None
 
-    def _apply_verb(self, subject_value: Any, verb: str, obj: str,
-                     units: Optional[str], subject_type: str) -> bool:
+    def _apply_verb(self, subject_value: Any, verb: str, obj: str, units: Optional[str], subject_type: str) -> bool:
         """Apply a comparison verb.
 
         Args:
@@ -122,55 +122,55 @@ class RuleEngine:
             return False
 
         # String comparisons
-        if verb == 'is':
+        if verb == "is":
             return str(subject_value).lower() == str(obj).lower()
-        elif verb == 'is not':
+        elif verb == "is not":
             return str(subject_value).lower() != str(obj).lower()
-        elif verb == 'contains':
+        elif verb == "contains":
             return str(obj).lower() in str(subject_value).lower()
-        elif verb == 'does not contain':
+        elif verb == "does not contain":
             return str(obj).lower() not in str(subject_value).lower()
-        elif verb == 'matches one of':
-            options = [opt.strip().lower() for opt in str(obj).split(',')]
+        elif verb == "matches one of":
+            options = [opt.strip().lower() for opt in str(obj).split(",")]
             return str(subject_value).lower() in options
-        elif verb == 'does not match one of':
-            options = [opt.strip().lower() for opt in str(obj).split(',')]
+        elif verb == "does not match one of":
+            options = [opt.strip().lower() for opt in str(obj).split(",")]
             return str(subject_value).lower() not in options
 
         # Numeric comparisons (for size)
-        elif verb in ['is greater than', 'is less than']:
-            if subject_type == 'Size':
+        elif verb in ["is greater than", "is less than"]:
+            if subject_type == "Size":
                 # Convert object to bytes based on units
                 obj_value = float(obj)
-                if units == 'KB':
+                if units == "KB":
                     obj_value *= 1024
-                elif units == 'MB':
+                elif units == "MB":
                     obj_value *= 1024 * 1024
 
-                if verb == 'is greater than':
+                if verb == "is greater than":
                     return subject_value > obj_value
                 else:  # is less than
                     return subject_value < obj_value
 
         # Date comparisons
-        elif verb in ['is in the last', 'is not in the last']:
+        elif verb in ["is in the last", "is not in the last"]:
             if isinstance(subject_value, datetime):
                 obj_value = float(obj)
                 now = datetime.now()
 
                 # Convert to timedelta based on units
-                if units == 'minutes':
+                if units == "minutes":
                     threshold = now - timedelta(minutes=obj_value)
-                elif units == 'hours':
+                elif units == "hours":
                     threshold = now - timedelta(hours=obj_value)
-                elif units == 'days':
+                elif units == "days":
                     threshold = now - timedelta(days=obj_value)
-                elif units == 'weeks':
+                elif units == "weeks":
                     threshold = now - timedelta(weeks=obj_value)
                 else:
                     return False
 
-                if verb == 'is in the last':
+                if verb == "is in the last":
                     return subject_value >= threshold
                 else:  # is not in the last
                     return subject_value < threshold
@@ -187,22 +187,22 @@ class RuleEngine:
         Returns:
             True if action was successful, False otherwise.
         """
-        action = rule.get('action')
-        destination = rule.get('destination')
-        overwrite = rule.get('overwrite', False)
+        action = rule.get("action")
+        destination = rule.get("destination")
+        overwrite = rule.get("overwrite", False)
 
         try:
-            if action == 'Move file':
+            if action == "Move file":
                 return self._move_file(file_path, destination, overwrite)
-            elif action == 'Copy file':
+            elif action == "Copy file":
                 return self._copy_file(file_path, destination, overwrite)
-            elif action == 'Rename file':
+            elif action == "Rename file":
                 return self._rename_file(file_path, destination, overwrite)
-            elif action == 'Delete file':
+            elif action == "Delete file":
                 return self._delete_file(file_path)
-            elif action == 'Send file to Recycle Bin':
+            elif action == "Send file to Recycle Bin":
                 return self._recycle_file(file_path)
-            elif action == 'Open file':
+            elif action == "Open file":
                 return self._open_file(file_path)
             else:
                 return False
@@ -318,11 +318,11 @@ class RuleEngine:
         import subprocess
 
         system = platform.system()
-        if system == 'Windows':
+        if system == "Windows":
             os.startfile(str(file_path))
-        elif system == 'Darwin':  # macOS
-            subprocess.run(['open', str(file_path)])
+        elif system == "Darwin":  # macOS
+            subprocess.run(["open", str(file_path)])
         else:  # Linux and others
-            subprocess.run(['xdg-open', str(file_path)])
+            subprocess.run(["xdg-open", str(file_path)])
 
         return True

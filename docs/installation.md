@@ -27,7 +27,7 @@ This is the easiest way to install Belvedere.
    # Clone or download the repository
    git clone https://github.com/mega-mattice/belvedere.git
    cd belvedere
-   
+
    # Install as a package
    pip install -e .
    ```
@@ -84,7 +84,7 @@ If you want to run Belvedere without installing:
    ```bash
    # Using Homebrew (recommended)
    brew install python
-   
+
    # Or download from python.org
    ```
 
@@ -102,10 +102,10 @@ If you want to run Belvedere without installing:
    # Debian/Ubuntu
    sudo apt update
    sudo apt install python3 python3-pip
-   
+
    # Fedora
    sudo dnf install python3 python3-pip
-   
+
    # Arch
    sudo pacman -S python python-pip
    ```
@@ -114,7 +114,7 @@ If you want to run Belvedere without installing:
    ```bash
    # Debian/Ubuntu
    sudo apt install libgl1-mesa-glx libegl1-mesa libxkbcommon-x11-0
-   
+
    # Fedora
    sudo dnf install mesa-libGL mesa-libEGL libxkbcommon-x11
    ```
@@ -149,7 +149,7 @@ After installation, verify that Belvedere is working:
 ### Python Not Found
 
 - **Problem**: `python: command not found` or similar error
-- **Solution**: 
+- **Solution**:
   - Ensure Python 3.8+ is installed
   - On some systems, use `python3` instead of `python`
   - Add Python to your PATH environment variable
@@ -157,7 +157,7 @@ After installation, verify that Belvedere is working:
 ### Import Errors
 
 - **Problem**: `ModuleNotFoundError` for PySide6, watchdog, or send2trash
-- **Solution**: 
+- **Solution**:
   - Install dependencies: `pip install -r requirements.txt`
   - Use the correct pip: `pip3` instead of `pip` on some systems
   - Try: `python -m pip install -r requirements.txt`
@@ -165,7 +165,7 @@ After installation, verify that Belvedere is working:
 ### Display Connection Error
 
 - **Problem**: "Cannot connect to display" or similar
-- **Solution**: 
+- **Solution**:
   - Belvedere requires a graphical desktop environment
   - Ensure you're not running in a headless environment
   - On Linux, ensure X11 or Wayland is running
@@ -173,7 +173,7 @@ After installation, verify that Belvedere is working:
 ### Permission Errors
 
 - **Problem**: Permission denied when installing
-- **Solution**: 
+- **Solution**:
   - Use `--user` flag: `pip install --user -e .`
   - Or use a virtual environment (recommended)
   - Don't use `sudo pip` - use virtual environments instead
@@ -181,7 +181,7 @@ After installation, verify that Belvedere is working:
 ### System Tray Not Showing (Linux)
 
 - **Problem**: Icon doesn't appear in system tray
-- **Solution**: 
+- **Solution**:
   - Ensure your desktop environment supports system tray icons
   - Install system tray extensions if needed (GNOME, etc.)
   - Some Wayland compositors have limited tray support - try X11

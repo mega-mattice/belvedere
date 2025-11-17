@@ -5,35 +5,41 @@ Provides interface for creating and editing file management rules.
 """
 
 from pathlib import Path
+from typing import Any, Dict, Optional, Tuple
+
 from PySide6.QtWidgets import (
-    QDialog, QVBoxLayout, QHBoxLayout, QLabel, QLineEdit,
-    QPushButton, QComboBox, QCheckBox, QGroupBox, QFileDialog,
-    QMessageBox, QWidget
+    QCheckBox,
+    QComboBox,
+    QDialog,
+    QFileDialog,
+    QGroupBox,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QMessageBox,
+    QPushButton,
+    QVBoxLayout,
+    QWidget,
 )
-from typing import Optional, Tuple, Dict, Any
 
 
 class RuleDialog(QDialog):
     """Dialog for creating and editing rules."""
 
-    SUBJECTS = ['Name', 'Extension', 'Size', 'Date last modified',
-                'Date last opened', 'Date created']
+    SUBJECTS = ["Name", "Extension", "Size", "Date last modified", "Date last opened", "Date created"]
 
-    NAME_VERBS = ['is', 'is not', 'matches one of', 'does not match one of',
-                  'contains', 'does not contain']
+    NAME_VERBS = ["is", "is not", "matches one of", "does not match one of", "contains", "does not contain"]
 
-    NUM_VERBS = ['is', 'is not', 'is greater than', 'is less than']
+    NUM_VERBS = ["is", "is not", "is greater than", "is less than"]
 
-    DATE_VERBS = ['is in the last', 'is not in the last']
+    DATE_VERBS = ["is in the last", "is not in the last"]
 
-    ACTIONS = ['Move file', 'Rename file', 'Send file to Recycle Bin',
-               'Delete file', 'Copy file', 'Open file']
+    ACTIONS = ["Move file", "Rename file", "Send file to Recycle Bin", "Delete file", "Copy file", "Open file"]
 
-    SIZE_UNITS = ['MB', 'KB']
-    DATE_UNITS = ['minutes', 'hours', 'days', 'weeks']
+    SIZE_UNITS = ["MB", "KB"]
+    DATE_UNITS = ["minutes", "hours", "days", "weeks"]
 
-    def __init__(self, folder_path: str, existing_rule: Optional[Tuple[str, Dict[str, Any]]] = None,
-                 parent=None):
+    def __init__(self, folder_path: str, existing_rule: Optional[Tuple[str, Dict[str, Any]]] = None, parent=None):
         """Initialize the rule dialog.
 
         Args:
@@ -94,7 +100,7 @@ class RuleDialog(QDialog):
         cond_header.addWidget(QLabel("If"))
 
         self.match_combo = QComboBox()
-        self.match_combo.addItems(['ALL', 'ANY'])
+        self.match_combo.addItems(["ALL", "ANY"])
         cond_header.addWidget(self.match_combo)
 
         cond_header.addWidget(QLabel("of the following conditions are met:"))
@@ -160,9 +166,7 @@ class RuleDialog(QDialog):
 
         subject_combo = QComboBox()
         subject_combo.addItems(self.SUBJECTS)
-        subject_combo.currentTextChanged.connect(
-            lambda: self.update_verb_list(len(self.condition_widgets))
-        )
+        subject_combo.currentTextChanged.connect(lambda: self.update_verb_list(len(self.condition_widgets)))
         condition_layout.addWidget(subject_combo)
 
         verb_combo = QComboBox()
@@ -184,18 +188,18 @@ class RuleDialog(QDialog):
         if len(self.condition_widgets) > 0:
             remove_btn = QPushButton("-")
             remove_btn.setFixedSize(20, 20)
-            remove_btn.clicked.connect(
-                lambda: self.remove_condition(condition_widget)
-            )
+            remove_btn.clicked.connect(lambda: self.remove_condition(condition_widget))
             condition_layout.addWidget(remove_btn)
 
-        self.condition_widgets.append({
-            'widget': condition_widget,
-            'subject': subject_combo,
-            'verb': verb_combo,
-            'object': object_input,
-            'units': units_combo
-        })
+        self.condition_widgets.append(
+            {
+                "widget": condition_widget,
+                "subject": subject_combo,
+                "verb": verb_combo,
+                "object": object_input,
+                "units": units_combo,
+            }
+        )
 
         self.conditions_layout.addWidget(condition_widget)
 
@@ -206,7 +210,7 @@ class RuleDialog(QDialog):
             widget: The condition widget to remove.
         """
         for i, cond in enumerate(self.condition_widgets):
-            if cond['widget'] == widget:
+            if cond["widget"] == widget:
                 self.conditions_layout.removeWidget(widget)
                 widget.deleteLater()
                 self.condition_widgets.pop(i)
@@ -222,25 +226,25 @@ class RuleDialog(QDialog):
             return
 
         cond = self.condition_widgets[index]
-        subject = cond['subject'].currentText()
-        verb_combo = cond['verb']
-        units_combo = cond['units']
-        object_input = cond['object']
+        subject = cond["subject"].currentText()
+        verb_combo = cond["verb"]
+        units_combo = cond["units"]
+        object_input = cond["object"]
 
         # Clear and update verb list
         verb_combo.clear()
 
-        if subject in ['Name', 'Extension']:
+        if subject in ["Name", "Extension"]:
             verb_combo.addItems(self.NAME_VERBS)
             units_combo.setVisible(False)
             object_input.setMaximumWidth(140)
-        elif subject == 'Size':
+        elif subject == "Size":
             verb_combo.addItems(self.NUM_VERBS)
             units_combo.clear()
             units_combo.addItems(self.SIZE_UNITS)
             units_combo.setVisible(True)
             object_input.setMaximumWidth(70)
-        elif subject in ['Date last modified', 'Date last opened', 'Date created']:
+        elif subject in ["Date last modified", "Date last opened", "Date created"]:
             verb_combo.addItems(self.DATE_VERBS)
             units_combo.clear()
             units_combo.addItems(self.DATE_UNITS)
@@ -251,13 +255,13 @@ class RuleDialog(QDialog):
         """Update visibility of destination controls based on action."""
         action = self.action_combo.currentText()
 
-        if action in ['Move file', 'Copy file']:
+        if action in ["Move file", "Copy file"]:
             self.dest_label.setVisible(True)
             self.dest_label.setText("to folder:")
             self.destination_input.setVisible(True)
             self.browse_btn.setVisible(True)
             self.overwrite_check.setVisible(True)
-        elif action == 'Rename file':
+        elif action == "Rename file":
             self.dest_label.setVisible(True)
             self.dest_label.setText("to:")
             self.destination_input.setVisible(True)
@@ -271,9 +275,7 @@ class RuleDialog(QDialog):
 
     def browse_destination(self):
         """Browse for destination folder."""
-        folder = QFileDialog.getExistingDirectory(
-            self, "Select Destination Folder"
-        )
+        folder = QFileDialog.getExistingDirectory(self, "Select Destination Folder")
         if folder:
             self.destination_input.setText(folder)
 
@@ -287,17 +289,17 @@ class RuleDialog(QDialog):
 
         # Load basic info
         self.description_input.setText(rule_name)
-        self.enabled_check.setChecked(rule_data.get('enabled', True))
-        self.confirm_check.setChecked(rule_data.get('confirm_action', False))
-        self.recursive_check.setChecked(rule_data.get('recursive', False))
-        self.match_combo.setCurrentText(rule_data.get('match_type', 'ALL'))
+        self.enabled_check.setChecked(rule_data.get("enabled", True))
+        self.confirm_check.setChecked(rule_data.get("confirm_action", False))
+        self.recursive_check.setChecked(rule_data.get("recursive", False))
+        self.match_combo.setCurrentText(rule_data.get("match_type", "ALL"))
 
         # Load conditions
-        conditions = rule_data.get('conditions', [])
+        conditions = rule_data.get("conditions", [])
         # Remove default condition if we have existing ones
         if conditions:
             while self.condition_widgets:
-                widget = self.condition_widgets[0]['widget']
+                widget = self.condition_widgets[0]["widget"]
                 self.conditions_layout.removeWidget(widget)
                 widget.deleteLater()
                 self.condition_widgets.pop(0)
@@ -305,17 +307,17 @@ class RuleDialog(QDialog):
         for condition in conditions:
             self.add_condition()
             cond = self.condition_widgets[-1]
-            cond['subject'].setCurrentText(condition.get('subject', 'Name'))
+            cond["subject"].setCurrentText(condition.get("subject", "Name"))
             self.update_verb_list(len(self.condition_widgets) - 1)
-            cond['verb'].setCurrentText(condition.get('verb', 'is'))
-            cond['object'].setText(condition.get('object', ''))
-            if condition.get('units'):
-                cond['units'].setCurrentText(condition['units'])
+            cond["verb"].setCurrentText(condition.get("verb", "is"))
+            cond["object"].setText(condition.get("object", ""))
+            if condition.get("units"):
+                cond["units"].setCurrentText(condition["units"])
 
         # Load action
-        self.action_combo.setCurrentText(rule_data.get('action', 'Move file'))
-        self.destination_input.setText(rule_data.get('destination', ''))
-        self.overwrite_check.setChecked(rule_data.get('overwrite', False))
+        self.action_combo.setCurrentText(rule_data.get("action", "Move file"))
+        self.destination_input.setText(rule_data.get("destination", ""))
+        self.overwrite_check.setChecked(rule_data.get("overwrite", False))
 
     def get_rule(self) -> Tuple[str, Dict[str, Any]]:
         """Get the rule data from the dialog.
@@ -328,24 +330,24 @@ class RuleDialog(QDialog):
         conditions = []
         for cond in self.condition_widgets:
             condition = {
-                'subject': cond['subject'].currentText(),
-                'verb': cond['verb'].currentText(),
-                'object': cond['object'].text(),
+                "subject": cond["subject"].currentText(),
+                "verb": cond["verb"].currentText(),
+                "object": cond["object"].text(),
             }
-            if cond['units'].isVisible():
-                condition['units'] = cond['units'].currentText()
+            if cond["units"].isVisible():
+                condition["units"] = cond["units"].currentText()
             conditions.append(condition)
 
         rule_data = {
-            'folder': self.folder_path,
-            'enabled': self.enabled_check.isChecked(),
-            'confirm_action': self.confirm_check.isChecked(),
-            'recursive': self.recursive_check.isChecked(),
-            'match_type': self.match_combo.currentText(),
-            'conditions': conditions,
-            'action': self.action_combo.currentText(),
-            'destination': self.destination_input.text(),
-            'overwrite': self.overwrite_check.isChecked()
+            "folder": self.folder_path,
+            "enabled": self.enabled_check.isChecked(),
+            "confirm_action": self.confirm_check.isChecked(),
+            "recursive": self.recursive_check.isChecked(),
+            "match_type": self.match_combo.currentText(),
+            "conditions": conditions,
+            "action": self.action_combo.currentText(),
+            "destination": self.destination_input.text(),
+            "overwrite": self.overwrite_check.isChecked(),
         }
 
         return rule_name, rule_data
@@ -358,10 +360,7 @@ class RuleDialog(QDialog):
 
         # Validate rule
         if not rule_name:
-            QMessageBox.warning(
-                self, "Missing Description",
-                "You need to write a description for your rule."
-            )
+            QMessageBox.warning(self, "Missing Description", "You need to write a description for your rule.")
             return
 
         # Test rule
@@ -370,11 +369,11 @@ class RuleDialog(QDialog):
         matches = []
 
         if folder.exists():
-            recursive = rule_data.get('recursive', False)
+            recursive = rule_data.get("recursive", False)
             if recursive:
-                files = list(folder.rglob('*'))
+                files = list(folder.rglob("*"))
             else:
-                files = list(folder.glob('*'))
+                files = list(folder.glob("*"))
 
             files = [f for f in files if f.is_file()]
 
@@ -386,43 +385,32 @@ class RuleDialog(QDialog):
                     pass
 
         if matches:
-            match_list = '\n'.join(matches[:20])  # Show first 20 matches
+            match_list = "\n".join(matches[:20])  # Show first 20 matches
             if len(matches) > 20:
-                match_list += f'\n... and {len(matches) - 20} more'
+                match_list += f"\n... and {len(matches) - 20} more"
             QMessageBox.information(
-                self, "Belvedere Test Matches",
-                f"This rule matches the following file(s):\n\n{match_list}"
+                self, "Belvedere Test Matches", f"This rule matches the following file(s):\n\n{match_list}"
             )
         else:
-            QMessageBox.information(
-                self, "Belvedere Test Matches",
-                "No matches were found"
-            )
+            QMessageBox.information(self, "Belvedere Test Matches", "No matches were found")
 
     def accept(self):
         """Validate and accept the dialog."""
         rule_name = self.description_input.text()
 
         if not rule_name:
-            QMessageBox.warning(
-                self, "Missing Description",
-                "You need to write a description for your rule."
-            )
+            QMessageBox.warning(self, "Missing Description", "You need to write a description for your rule.")
             return
 
-        if '|' in rule_name:
-            QMessageBox.warning(
-                self, "Invalid Character",
-                "Your description cannot contain the | (pipe) character"
-            )
+        if "|" in rule_name:
+            QMessageBox.warning(self, "Invalid Character", "Your description cannot contain the | (pipe) character")
             return
 
         # Validate conditions
         for cond in self.condition_widgets:
-            if not cond['object'].text():
+            if not cond["object"].text():
                 QMessageBox.warning(
-                    self, "Missing Data",
-                    f"You're missing data in one of your {cond['subject'].currentText()} rules."
+                    self, "Missing Data", f"You're missing data in one of your {cond['subject'].currentText()} rules."
                 )
                 return
 
@@ -430,21 +418,17 @@ class RuleDialog(QDialog):
         action = self.action_combo.currentText()
         destination = self.destination_input.text()
 
-        if action in ['Move file', 'Copy file', 'Rename file']:
+        if action in ["Move file", "Copy file", "Rename file"]:
             if not destination:
                 QMessageBox.warning(
-                    self, "Missing Destination",
-                    f"You need to enter a destination folder for the {action} action."
+                    self, "Missing Destination", f"You need to enter a destination folder for the {action} action."
                 )
                 return
 
-            if action in ['Move file', 'Copy file']:
+            if action in ["Move file", "Copy file"]:
                 dest_path = Path(destination)
                 if not dest_path.exists():
-                    QMessageBox.warning(
-                        self, "Invalid Destination",
-                        f"{destination} is not a real folder."
-                    )
+                    QMessageBox.warning(self, "Invalid Destination", f"{destination} is not a real folder.")
                     return
 
         super().accept()

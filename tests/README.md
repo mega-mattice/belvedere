@@ -124,10 +124,10 @@ All tests follow the AAA pattern for clarity:
 def test_add_folder_succeeds(self, config):
     # Arrange
     test_folder = "/tmp/test_folder"
-    
+
     # Act
     config.add_folder(test_folder)
-    
+
     # Assert
     assert test_folder in config.get_folders()
 ```
@@ -165,9 +165,9 @@ def test_recycle_file_succeeds(self, rule_engine, sample_file, mocker):
     """Test sending a file to recycle bin."""
     mock_send2trash = mocker.patch('belvedere.rule_engine.send2trash.send2trash')
     rule = {'action': 'Send file to Recycle Bin'}
-    
+
     result = rule_engine.execute_action(sample_file, rule)
-    
+
     assert result is True
     mock_send2trash.assert_called_once_with(str(sample_file))
 ```
@@ -238,23 +238,23 @@ Example:
 ```python
 class TestNewFeature:
     """Tests for the new feature."""
-    
+
     def test_new_feature_succeeds_with_valid_input(self, fixture_name):
         """Test that new feature works with valid input."""
         # Arrange
         input_data = create_test_data()
-        
+
         # Act
         result = new_feature(input_data)
-        
+
         # Assert
         assert result.is_valid()
-    
+
     def test_new_feature_raises_error_with_invalid_input(self, fixture_name):
         """Test that new feature raises error with invalid input."""
         # Arrange
         invalid_data = create_invalid_data()
-        
+
         # Act & Assert
         with pytest.raises(ValueError, match="Invalid input"):
             new_feature(invalid_data)
