@@ -5,5 +5,5 @@ Launcher script for Belvedere.
 
 from belvedere.main import main
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

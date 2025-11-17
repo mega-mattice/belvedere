@@ -6,18 +6,18 @@
 		x Date modified
 		x Date created
 		x Date last opened
-	
+
 0.2 Release:
 	x Matches multiple rules (ALL or ANY)
 	x Edit existing rules
 	x Action Updates: Move file to Recycle Bin, permanently delete
 	x fixed mouse bugs
 	x Add new icon from John Muller
-	x Set checks for proper data entry before submit	
+	x Set checks for proper data entry before submit
 	x Verify no duplicate rule descriptions	for a single folder
 	x Add excellent new icon, about page
 
-	
+
 0.3 Release:
 	x Test rule matches
 		x Not absolutely perfect (there are some bugs when you've deleted conditions), but seems to work apart from that
@@ -34,7 +34,7 @@ Added Features not yet in release:
 	- Added rule and folder deletion confirmation
 	- fixed bug in rule description bug across folders
 	- created application installer
-	
+
 Maybe features:
  	- Multiple Actions (e.g., copy twice, copy and move, etc.) (moved to 0.3)
 	- Trash management tab a la Hazel (i.e., Keep Recycle Bin size under X GB)
@@ -42,4 +42,4 @@ Maybe features:
 	- Multiple Actions/Results
 	- Action, Action1, etc, break loop when IniRead reads ERROR
 	- Update GUI to allow for multiple actions
-	- change rule storage 
+	- change rule storage

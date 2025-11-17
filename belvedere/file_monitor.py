@@ -5,9 +5,10 @@ Monitors folders for file changes and triggers rule evaluation.
 """
 
 from pathlib import Path
-from typing import Dict, Callable, Any
+from typing import Any, Callable, Dict
+
+from watchdog.events import FileSystemEvent, FileSystemEventHandler
 from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler, FileSystemEvent
 
 from .rule_engine import RuleEngine
 
@@ -15,8 +16,7 @@ from .rule_engine import RuleEngine
 class BelvedereEventHandler(FileSystemEventHandler):
     """Handles file system events for Belvedere."""
 
-    def __init__(self, folder_path: str, rules: Dict[str, Any],
-                 rule_engine: RuleEngine, confirm_callback: Callable = None):
+    def __init__(self, folder_path: str, rules: Dict[str, Any], rule_engine: RuleEngine, confirm_callback: Callable = None):
         """Initialize event handler.
 
         Args:
@@ -59,13 +59,13 @@ class BelvedereEventHandler(FileSystemEventHandler):
             return
 
         for rule_name, rule in self.rules.items():
-            if not rule.get('enabled', True):
+            if not rule.get("enabled", True):
                 continue
 
             try:
                 if self.rule_engine.evaluate_rule(file_path, rule):
                     # Check if confirmation is needed
-                    if rule.get('confirm_action', False):
+                    if rule.get("confirm_action", False):
                         if self.confirm_callback:
                             if not self.confirm_callback(file_path, rule_name, rule):
                                 continue
@@ -104,9 +104,7 @@ class FileMonitor:
         if folder_path in self.handlers:
             self.remove_folder(folder_path)
 
-        handler = BelvedereEventHandler(
-            folder_path, rules, self.rule_engine, self.confirm_callback
-        )
+        handler = BelvedereEventHandler(folder_path, rules, self.rule_engine, self.confirm_callback)
 
         watch = self.observer.schedule(handler, folder_path, recursive=recursive)
         self.handlers[folder_path] = handler
@@ -164,9 +162,9 @@ class FileMonitor:
 
         # Get files to process
         if recursive:
-            files = list(folder.rglob('*'))
+            files = list(folder.rglob("*"))
         else:
-            files = list(folder.glob('*'))
+            files = list(folder.glob("*"))
 
         # Filter to only files
         files = [f for f in files if f.is_file()]
@@ -174,13 +172,13 @@ class FileMonitor:
         # Process each file
         for file_path in files:
             for rule_name, rule in rules.items():
-                if not rule.get('enabled', True):
+                if not rule.get("enabled", True):
                     continue
 
                 try:
                     if self.rule_engine.evaluate_rule(file_path, rule):
                         # Check if confirmation is needed
-                        if rule.get('confirm_action', False):
+                        if rule.get("confirm_action", False):
                             if self.confirm_callback:
                                 if not self.confirm_callback(file_path, rule_name, rule):
                                     continue

@@ -6,16 +6,15 @@ Provides system tray icon and manages the application lifecycle.
 
 import sys
 from pathlib import Path
-from PySide6.QtWidgets import (
-    QApplication, QSystemTrayIcon, QMenu, QMessageBox
-)
-from PySide6.QtGui import QIcon, QAction
+
 from PySide6.QtCore import QTimer
+from PySide6.QtGui import QAction, QIcon
+from PySide6.QtWidgets import QApplication, QMenu, QMessageBox, QSystemTrayIcon
 
 from .config import Config
-from .rule_engine import RuleEngine
 from .file_monitor import FileMonitor
 from .main_window import MainWindow
+from .rule_engine import RuleEngine
 
 
 class BelvedereApp:
@@ -28,10 +27,7 @@ class BelvedereApp:
 
         self.config = Config()
         self.rule_engine = RuleEngine()
-        self.file_monitor = FileMonitor(
-            self.rule_engine,
-            self.confirm_action
-        )
+        self.file_monitor = FileMonitor(self.rule_engine, self.confirm_action)
 
         self.main_window = None
         self.setup_tray_icon()
@@ -41,11 +37,11 @@ class BelvedereApp:
     def setup_tray_icon(self):
         """Setup system tray icon and menu."""
         # Try to load icon from resources, fallback to default
-        icon_path = Path(__file__).parent.parent / 'resources' / 'belvedere.ico'
+        icon_path = Path(__file__).parent.parent / "resources" / "belvedere.ico"
         if icon_path.exists():
             icon = QIcon(str(icon_path))
         else:
-            icon = QIcon.fromTheme('application-x-executable')
+            icon = QIcon.fromTheme("application-x-executable")
 
         self.tray_icon = QSystemTrayIcon(icon, self.app)
         self.tray_icon.setToolTip("Belvedere 0.6")
@@ -79,7 +75,7 @@ class BelvedereApp:
 
         # Get sleep time from preferences
         prefs = self.config.get_preferences()
-        sleep_time = prefs.get('sleep_time', 5000)
+        sleep_time = prefs.get("sleep_time", 5000)
         self.timer.start(sleep_time)
 
     def start_monitoring(self):
@@ -89,7 +85,7 @@ class BelvedereApp:
             rules = self.config.get_rules(folder)
             if rules:
                 # Check if any rule uses recursive
-                recursive = any(r.get('recursive', False) for r in rules.values())
+                recursive = any(r.get("recursive", False) for r in rules.values())
                 self.file_monitor.add_folder(folder, rules, recursive)
 
         self.file_monitor.start()
@@ -100,7 +96,7 @@ class BelvedereApp:
         for folder in folders:
             rules = self.config.get_rules(folder)
             if rules:
-                recursive = any(r.get('recursive', False) for r in rules.values())
+                recursive = any(r.get("recursive", False) for r in rules.values())
                 self.file_monitor.scan_folder_once(folder, rules, recursive)
 
     def update_monitoring(self):
@@ -116,7 +112,7 @@ class BelvedereApp:
 
         # Update timer interval
         prefs = self.config.get_preferences()
-        sleep_time = prefs.get('sleep_time', 5000)
+        sleep_time = prefs.get("sleep_time", 5000)
         self.timer.setInterval(sleep_time)
 
     def confirm_action(self, file_path: Path, rule_name: str, rule: dict) -> bool:
@@ -130,12 +126,12 @@ class BelvedereApp:
         Returns:
             True if user confirms, False otherwise.
         """
-        action = rule.get('action', 'unknown action')
+        action = rule.get("action", "unknown action")
         reply = QMessageBox.question(
             None,
             "Action Confirmation",
             f"Are you sure you want to {action} {file_path.name} because of rule {rule_name}?",
-            QMessageBox.Yes | QMessageBox.No
+            QMessageBox.Yes | QMessageBox.No,
         )
         return reply == QMessageBox.Yes
 
@@ -190,5 +186,5 @@ def main():
     sys.exit(app.run())
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()

@@ -5,12 +5,24 @@ Provides the tabbed interface for managing folders, rules, and preferences.
 """
 
 from pathlib import Path
-from PySide6.QtWidgets import (
-    QMainWindow, QTabWidget, QWidget, QVBoxLayout, QHBoxLayout,
-    QListWidget, QPushButton, QLabel, QMessageBox, QFileDialog,
-    QListWidgetItem, QCheckBox, QLineEdit, QComboBox
-)
+
 from PySide6.QtCore import Qt, Signal
+from PySide6.QtWidgets import (
+    QCheckBox,
+    QComboBox,
+    QFileDialog,
+    QHBoxLayout,
+    QLabel,
+    QLineEdit,
+    QListWidget,
+    QListWidgetItem,
+    QMainWindow,
+    QMessageBox,
+    QPushButton,
+    QTabWidget,
+    QVBoxLayout,
+    QWidget,
+)
 
 from .config import Config
 from .rule_dialog import RuleDialog
@@ -139,8 +151,8 @@ class MainWindow(QMainWindow):
         age_layout.addWidget(self.rb_age_value)
 
         self.rb_age_unit = QComboBox()
-        self.rb_age_unit.addItems(['minutes', 'hours', 'days', 'weeks'])
-        self.rb_age_unit.setCurrentText('days')
+        self.rb_age_unit.addItems(["minutes", "hours", "days", "weeks"])
+        self.rb_age_unit.setCurrentText("days")
         age_layout.addWidget(self.rb_age_unit)
         age_layout.addStretch()
         layout.addLayout(age_layout)
@@ -156,7 +168,7 @@ class MainWindow(QMainWindow):
         size_layout.addWidget(self.rb_size_value)
 
         self.rb_size_unit = QComboBox()
-        self.rb_size_unit.addItems(['MB', 'KB'])
+        self.rb_size_unit.addItems(["MB", "KB"])
         size_layout.addWidget(self.rb_size_unit)
         size_layout.addStretch()
         layout.addLayout(size_layout)
@@ -167,10 +179,7 @@ class MainWindow(QMainWindow):
         approach_layout.addWidget(QLabel("Deletion Approach:"))
 
         self.rb_deletion_approach = QComboBox()
-        self.rb_deletion_approach.addItems([
-            'Oldest First', 'Youngest First',
-            'Largest First', 'Smallest First'
-        ])
+        self.rb_deletion_approach.addItems(["Oldest First", "Youngest First", "Largest First", "Smallest First"])
         approach_layout.addWidget(self.rb_deletion_approach)
         approach_layout.addStretch()
         layout.addLayout(approach_layout)
@@ -186,8 +195,8 @@ class MainWindow(QMainWindow):
         empty_layout.addWidget(self.rb_empty_value)
 
         self.rb_empty_unit = QComboBox()
-        self.rb_empty_unit.addItems(['minutes', 'hours', 'days', 'weeks'])
-        self.rb_empty_unit.setCurrentText('days')
+        self.rb_empty_unit.addItems(["minutes", "hours", "days", "weeks"])
+        self.rb_empty_unit.setCurrentText("days")
         empty_layout.addWidget(self.rb_empty_unit)
         empty_layout.addStretch()
         layout.addLayout(empty_layout)
@@ -203,10 +212,16 @@ class MainWindow(QMainWindow):
 
         # Store widgets for enable/disable
         self.rb_widgets = [
-            self.rb_manage_age, self.rb_age_value, self.rb_age_unit,
-            self.rb_manage_size, self.rb_size_value, self.rb_size_unit,
-            self.rb_deletion_approach, self.rb_auto_empty,
-            self.rb_empty_value, self.rb_empty_unit
+            self.rb_manage_age,
+            self.rb_age_value,
+            self.rb_age_unit,
+            self.rb_manage_size,
+            self.rb_size_value,
+            self.rb_size_unit,
+            self.rb_deletion_approach,
+            self.rb_auto_empty,
+            self.rb_empty_value,
+            self.rb_empty_unit,
         ]
 
     def create_preferences_tab(self):
@@ -247,21 +262,21 @@ class MainWindow(QMainWindow):
 
         # Load preferences
         prefs = self.config.get_preferences()
-        self.sleep_time_input.setText(str(prefs.get('sleep_time', 5000)))
+        self.sleep_time_input.setText(str(prefs.get("sleep_time", 5000)))
 
         # Load recycle bin preferences
-        rb_prefs = prefs.get('recycle_bin', {})
-        self.rb_enable.setChecked(rb_prefs.get('enabled', False))
-        self.rb_manage_age.setChecked(rb_prefs.get('manage_age', False))
-        self.rb_age_value.setText(str(rb_prefs.get('age_value', '')))
-        self.rb_age_unit.setCurrentText(rb_prefs.get('age_unit', 'days'))
-        self.rb_manage_size.setChecked(rb_prefs.get('manage_size', False))
-        self.rb_size_value.setText(str(rb_prefs.get('size_value', '')))
-        self.rb_size_unit.setCurrentText(rb_prefs.get('size_unit', 'MB'))
-        self.rb_deletion_approach.setCurrentText(rb_prefs.get('deletion_approach', 'Oldest First'))
-        self.rb_auto_empty.setChecked(rb_prefs.get('auto_empty', False))
-        self.rb_empty_value.setText(str(rb_prefs.get('empty_value', '')))
-        self.rb_empty_unit.setCurrentText(rb_prefs.get('empty_unit', 'days'))
+        rb_prefs = prefs.get("recycle_bin", {})
+        self.rb_enable.setChecked(rb_prefs.get("enabled", False))
+        self.rb_manage_age.setChecked(rb_prefs.get("manage_age", False))
+        self.rb_age_value.setText(str(rb_prefs.get("age_value", "")))
+        self.rb_age_unit.setCurrentText(rb_prefs.get("age_unit", "days"))
+        self.rb_manage_size.setChecked(rb_prefs.get("manage_size", False))
+        self.rb_size_value.setText(str(rb_prefs.get("size_value", "")))
+        self.rb_size_unit.setCurrentText(rb_prefs.get("size_unit", "MB"))
+        self.rb_deletion_approach.setCurrentText(rb_prefs.get("deletion_approach", "Oldest First"))
+        self.rb_auto_empty.setChecked(rb_prefs.get("auto_empty", False))
+        self.rb_empty_value.setText(str(rb_prefs.get("empty_value", "")))
+        self.rb_empty_unit.setCurrentText(rb_prefs.get("empty_unit", "days"))
 
         self.toggle_recycle_bin_options()
 
@@ -284,7 +299,7 @@ class MainWindow(QMainWindow):
         # Load rules for this folder
         rules = self.config.get_rules(folder_path)
         for rule_name, rule_data in rules.items():
-            enabled = rule_data.get('enabled', True)
+            enabled = rule_data.get("enabled", True)
             item = QListWidgetItem(f"{'Yes' if enabled else 'No'} - {rule_name}")
             item.setData(Qt.UserRole, rule_name)
             self.rules_list.addItem(item)
@@ -304,14 +319,12 @@ class MainWindow(QMainWindow):
         rules = self.config.get_rules(self.current_folder)
         rule = rules.get(rule_name, {})
 
-        enabled = rule.get('enabled', True)
+        enabled = rule.get("enabled", True)
         self.enable_btn.setText("Disable" if enabled else "Enable")
 
     def add_folder(self):
         """Add a new folder to monitor."""
-        folder = QFileDialog.getExistingDirectory(
-            self, "Select Folder to Monitor"
-        )
+        folder = QFileDialog.getExistingDirectory(self, "Select Folder to Monitor")
 
         if folder:
             self.config.add_folder(folder)
@@ -324,17 +337,15 @@ class MainWindow(QMainWindow):
         """Remove a folder from monitoring."""
         current = self.folders_list.currentItem()
         if current is None:
-            QMessageBox.warning(
-                self, "No Selection",
-                "Please select a folder to remove."
-            )
+            QMessageBox.warning(self, "No Selection", "Please select a folder to remove.")
             return
 
         folder_path = current.data(Qt.UserRole)
         reply = QMessageBox.question(
-            self, "Delete Folder",
+            self,
+            "Delete Folder",
             f"Are you sure you want to delete the folder '{Path(folder_path).name}'?",
-            QMessageBox.Yes | QMessageBox.No
+            QMessageBox.Yes | QMessageBox.No,
         )
 
         if reply == QMessageBox.Yes:
@@ -347,10 +358,7 @@ class MainWindow(QMainWindow):
     def add_rule(self):
         """Add a new rule."""
         if self.current_folder is None:
-            QMessageBox.warning(
-                self, "No Folder Selected",
-                "You must select a folder to create a rule."
-            )
+            QMessageBox.warning(self, "No Folder Selected", "You must select a folder to create a rule.")
             return
 
         dialog = RuleDialog(self.current_folder, None, self)
@@ -364,10 +372,7 @@ class MainWindow(QMainWindow):
         """Edit an existing rule."""
         current = self.rules_list.currentItem()
         if current is None:
-            QMessageBox.warning(
-                self, "No Selection",
-                "Please select a rule to edit."
-            )
+            QMessageBox.warning(self, "No Selection", "Please select a rule to edit.")
             return
 
         rule_name = current.data(Qt.UserRole)
@@ -387,17 +392,12 @@ class MainWindow(QMainWindow):
         """Remove a rule."""
         current = self.rules_list.currentItem()
         if current is None:
-            QMessageBox.warning(
-                self, "No Selection",
-                "Please select a rule to delete."
-            )
+            QMessageBox.warning(self, "No Selection", "Please select a rule to delete.")
             return
 
         rule_name = current.data(Qt.UserRole)
         reply = QMessageBox.question(
-            self, "Delete Rule",
-            f"Are you sure you want to delete the rule '{rule_name}'?",
-            QMessageBox.Yes | QMessageBox.No
+            self, "Delete Rule", f"Are you sure you want to delete the rule '{rule_name}'?", QMessageBox.Yes | QMessageBox.No
         )
 
         if reply == QMessageBox.Yes:
@@ -410,18 +410,15 @@ class MainWindow(QMainWindow):
         """Toggle rule enabled/disabled state."""
         current = self.rules_list.currentItem()
         if current is None:
-            QMessageBox.warning(
-                self, "No Selection",
-                "Please select a rule to enable/disable."
-            )
+            QMessageBox.warning(self, "No Selection", "Please select a rule to enable/disable.")
             return
 
         rule_name = current.data(Qt.UserRole)
         rules = self.config.get_rules(self.current_folder)
         rule = rules.get(rule_name, {})
 
-        enabled = rule.get('enabled', True)
-        rule['enabled'] = not enabled
+        enabled = rule.get("enabled", True)
+        rule["enabled"] = not enabled
         self.config.add_rule(rule_name, rule)
 
         self.on_folder_selected(self.folders_list.currentItem(), None)
@@ -436,37 +433,28 @@ class MainWindow(QMainWindow):
     def save_recycle_bin_prefs(self):
         """Save recycle bin preferences."""
         rb_prefs = {
-            'enabled': self.rb_enable.isChecked(),
-            'manage_age': self.rb_manage_age.isChecked(),
-            'age_value': int(self.rb_age_value.text()) if self.rb_age_value.text() else 0,
-            'age_unit': self.rb_age_unit.currentText(),
-            'manage_size': self.rb_manage_size.isChecked(),
-            'size_value': int(self.rb_size_value.text()) if self.rb_size_value.text() else 0,
-            'size_unit': self.rb_size_unit.currentText(),
-            'deletion_approach': self.rb_deletion_approach.currentText(),
-            'auto_empty': self.rb_auto_empty.isChecked(),
-            'empty_value': int(self.rb_empty_value.text()) if self.rb_empty_value.text() else 0,
-            'empty_unit': self.rb_empty_unit.currentText()
+            "enabled": self.rb_enable.isChecked(),
+            "manage_age": self.rb_manage_age.isChecked(),
+            "age_value": int(self.rb_age_value.text()) if self.rb_age_value.text() else 0,
+            "age_unit": self.rb_age_unit.currentText(),
+            "manage_size": self.rb_manage_size.isChecked(),
+            "size_value": int(self.rb_size_value.text()) if self.rb_size_value.text() else 0,
+            "size_unit": self.rb_size_unit.currentText(),
+            "deletion_approach": self.rb_deletion_approach.currentText(),
+            "auto_empty": self.rb_auto_empty.isChecked(),
+            "empty_value": int(self.rb_empty_value.text()) if self.rb_empty_value.text() else 0,
+            "empty_unit": self.rb_empty_unit.currentText(),
         }
 
-        self.config.update_preferences({'recycle_bin': rb_prefs})
-        QMessageBox.information(
-            self, "Saved Settings",
-            "Your settings have been saved."
-        )
+        self.config.update_preferences({"recycle_bin": rb_prefs})
+        QMessageBox.information(self, "Saved Settings", "Your settings have been saved.")
 
     def save_preferences(self):
         """Save general preferences."""
         try:
             sleep_time = int(self.sleep_time_input.text())
-            self.config.update_preferences({'sleep_time': sleep_time})
-            QMessageBox.information(
-                self, "Saved Settings",
-                "Your settings have been saved."
-            )
+            self.config.update_preferences({"sleep_time": sleep_time})
+            QMessageBox.information(self, "Saved Settings", "Your settings have been saved.")
             self.rules_changed.emit()
         except ValueError:
-            QMessageBox.warning(
-                self, "Invalid Input",
-                "Please enter a valid number for sleep time."
-            )
+            QMessageBox.warning(self, "Invalid Input", "Please enter a valid number for sleep time.")

@@ -476,7 +476,7 @@ Controls how often Belvedere checks folders for files to process.
   - Faster response
   - More CPU usage
   - Better for frequently changing folders
-  
+
 - **Higher values** (10000-30000ms):
   - Less CPU usage
   - Slower response

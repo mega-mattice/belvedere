@@ -6,7 +6,6 @@ This script checks for dependencies and launches Belvedere with helpful error me
 """
 
 import sys
-import subprocess
 
 
 def check_python_version():
@@ -24,22 +23,22 @@ def check_python_version():
 def check_dependencies():
     """Check if required dependencies are installed."""
     missing = []
-    
+
     try:
-        import PySide6
+        import PySide6  # noqa: F401
     except ImportError:
-        missing.append('PySide6')
-    
+        missing.append("PySide6")
+
     try:
-        import watchdog
+        import watchdog  # noqa: F401
     except ImportError:
-        missing.append('watchdog')
-    
+        missing.append("watchdog")
+
     try:
-        import send2trash
+        import send2trash  # noqa: F401
     except ImportError:
-        missing.append('send2trash')
-    
+        missing.append("send2trash")
+
     if missing:
         print("Error: Missing required dependencies:")
         for dep in missing:
@@ -49,7 +48,7 @@ def check_dependencies():
         print("\nOr install as a package:")
         print("  pip install -e .")
         return False
-    
+
     return True
 
 
@@ -57,16 +56,16 @@ def check_display():
     """Check if display is available (Linux/Unix)."""
     import os
     import platform
-    
-    if platform.system() in ['Linux', 'FreeBSD', 'OpenBSD']:
-        if not os.environ.get('DISPLAY') and not os.environ.get('WAYLAND_DISPLAY'):
+
+    if platform.system() in ["Linux", "FreeBSD", "OpenBSD"]:
+        if not os.environ.get("DISPLAY") and not os.environ.get("WAYLAND_DISPLAY"):
             print("Warning: No display detected.")
             print("Belvedere requires a graphical desktop environment.")
             print("\nIf you're using SSH, try:")
             print("  - SSH with X11 forwarding: ssh -X user@host")
             print("  - Or run Belvedere on the local machine")
             return False
-    
+
     return True
 
 
@@ -76,32 +75,34 @@ def main():
     print("Belvedere - Automated File Management")
     print("=" * 60)
     print()
-    
+
     # Check Python version
     if not check_python_version():
         return 1
-    
+
     # Check dependencies
     if not check_dependencies():
         return 1
-    
+
     # Check display (informational warning only)
     check_display()
-    
+
     print("Starting Belvedere...")
     print("(The application will run in the system tray)")
     print()
-    
+
     # Import and run the application
     try:
         from belvedere.main import main as belvedere_main
+
         return belvedere_main()
     except Exception as e:
         print(f"\nError starting Belvedere: {e}")
         import traceback
+
         traceback.print_exc()
         return 1
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     sys.exit(main())

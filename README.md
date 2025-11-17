@@ -44,13 +44,13 @@ Download the latest Windows executable from the [Releases](https://github.com/me
    # Clone or download the repository
    git clone https://github.com/mega-mattice/belvedere.git
    cd belvedere
-   
+
    # Install dependencies with Poetry (recommended)
    poetry install
-   
+
    # Or install with pip
    pip install -r requirements.txt
-   
+
    # Or install as a package
    pip install -e .
    ```
@@ -59,10 +59,10 @@ Download the latest Windows executable from the [Releases](https://github.com/me
    ```bash
    # Using Poetry
    poetry run belvedere
-   
+
    # Using the launcher script
    python belvedere.py
-   
+
    # Or if installed as a package
    belvedere
    ```

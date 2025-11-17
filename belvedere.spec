@@ -1,8 +1,8 @@
 # -*- mode: python ; coding: utf-8 -*-
 # PyInstaller spec file for Belvedere
-# 
+#
 # Build with: poetry run pyinstaller belvedere.spec
-# 
+#
 # This creates a single executable file for Windows with all dependencies included.
 
 from PyInstaller.utils.hooks import collect_data_files
