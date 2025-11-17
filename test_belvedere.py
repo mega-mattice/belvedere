@@ -48,7 +48,7 @@ def test_config():
         config2 = Config(config_path)
         assert test_folder in config2.get_folders(), "Config not persisted"
 
-    print("✓ Configuration management tests passed")
+    print("[OK] Configuration management tests passed")
 
 
 def test_rule_engine():
@@ -110,7 +110,7 @@ def test_rule_engine():
         result = engine.evaluate_rule(test_file, rule)
         assert result, "Failed to match ANY conditions"
 
-    print("✓ Rule engine tests passed")
+    print("[OK] Rule engine tests passed")
 
 
 def test_file_operations():
@@ -163,7 +163,7 @@ def test_file_operations():
         assert result, "Delete failed"
         assert not delete_file.exists(), "File not deleted"
 
-    print("✓ File operation tests passed")
+    print("[OK] File operation tests passed")
 
 
 def test_date_rules():
@@ -195,7 +195,7 @@ def test_date_rules():
         result = engine.evaluate_rule(test_file, rule)
         assert not result, "Incorrectly matched old date"
 
-    print("✓ Date-based rule tests passed")
+    print("[OK] Date-based rule tests passed")
 
 
 def main():
@@ -211,14 +211,14 @@ def main():
         test_date_rules()
 
         print("\n" + "=" * 60)
-        print("✓ All tests passed!")
+        print("[OK] All tests passed!")
         print("=" * 60)
         return 0
     except AssertionError as e:
-        print(f"\n✗ Test failed: {e}")
+        print(f"\n[FAIL] Test failed: {e}")
         return 1
     except Exception as e:
-        print(f"\n✗ Unexpected error: {e}")
+        print(f"\n[FAIL] Unexpected error: {e}")
         import traceback
 
         traceback.print_exc()
