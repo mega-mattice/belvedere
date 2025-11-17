@@ -449,6 +449,10 @@ class MainWindow(QMainWindow):
         self.config.update_preferences({"recycle_bin": rb_prefs})
         QMessageBox.information(self, "Saved Settings", "Your settings have been saved.")
 
+        # Notify main app to update auto-empty timer
+        if hasattr(self, 'rules_changed'):
+            self.rules_changed.emit()
+
     def save_preferences(self):
         """Save general preferences."""
         try:
