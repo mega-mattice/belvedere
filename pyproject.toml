@@ -7,14 +7,13 @@ authors = [
 ]
 license = "GPL-3.0-or-later"
 readme = "README.md"
-requires-python = ">=3.9,<3.14"
+requires-python = ">=3.10,<3.14"
 keywords = ["file-management", "automation", "desktop"]
 classifiers = [
     "Development Status :: 4 - Beta",
     "Intended Audience :: End Users/Desktop",
     "Operating System :: OS Independent",
     "Programming Language :: Python :: 3",
-    "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
@@ -41,6 +40,7 @@ pyinstaller = "^6.0.0"
 pytest = "^9.0.0"
 pytest-mock = "^3.15.0"
 pytest-cov = "^7.0.0"
+flake8 = "^7.0.0"
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

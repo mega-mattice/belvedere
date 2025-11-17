@@ -25,8 +25,7 @@ belvedere/
 ├── setup.py                   # Package setup configuration
 ├── .gitignore                 # Git ignore rules
 ├── README.md                  # Main documentation
-├── PYTHON_VERSION.md          # Python version guide
-└── VERSION_COMPARISON.md      # Version comparison chart
+└── docs/                       # User documentation
 ```
 
 ## Core Components

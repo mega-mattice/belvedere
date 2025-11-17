@@ -69,17 +69,20 @@ Download the latest Windows executable from the [Releases](https://github.com/me
 
 ## Building from Source
 
-For developers who want to build executables, see [BUILD.md](BUILD.md) for detailed build instructions.
+For developers who want to build executables, see [Building Guide](docs/building.md) for detailed build instructions.
 
 ## Documentation
 
 Comprehensive documentation is available in the [docs](docs/) folder:
 
 - **[Getting Started Guide](docs/getting-started.md)** - Quick introduction for new users
+- **[Installation Guide](docs/installation.md)** - Installation instructions for all platforms
 - **[Usage Guide](docs/usage.md)** - Complete feature reference and best practices
 - **[Troubleshooting Guide](docs/troubleshooting.md)** - Solutions to common issues
-- **[Running Belvedere](PYTHON_VERSION.md)** - Running and using Belvedere
-- **[Implementation Summary](IMPLEMENTATION_SUMMARY.md)** - Technical details about the implementation
+- **[Running Belvedere](docs/running.md)** - Running and using Belvedere
+- **[Building Guide](docs/building.md)** - Build instructions for developers
+- **[Implementation Summary](docs/implementation.md)** - Technical details about the implementation
+- **[Changelog](docs/changelog.md)** - Development notes and release history
 
 ## Features
 
