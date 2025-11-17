@@ -34,6 +34,17 @@ Detailed instructions for installing Belvedere on all platforms. Covers:
 
 **Best for**: Users installing or upgrading Belvedere.
 
+### [Running Guide](running.md)
+
+Platform-specific instructions for running Belvedere after installation. Covers:
+- Prerequisites and system requirements
+- Running the application on different platforms
+- Configuration file locations
+- Platform-specific notes for Linux, macOS, and Windows
+- Troubleshooting common runtime issues
+
+**Best for**: Users who need help running Belvedere on their specific platform.
+
 ### [Usage Guide](usage.md)
 
 Comprehensive reference for all Belvedere features. Includes:
@@ -57,6 +68,38 @@ Solutions to common problems and issues. Addresses:
 - General troubleshooting steps
 
 **Best for**: Users experiencing problems or unexpected behavior.
+
+### [Building Guide](building.md)
+
+Instructions for developers who want to build Belvedere from source. Covers:
+- Automated releases with GitHub Actions
+- Manual building with PyInstaller
+- Platform-specific build considerations
+- Build configuration and customization
+- Distribution checklist and troubleshooting
+
+**Best for**: Developers contributing to or distributing Belvedere.
+
+### [Implementation Summary](implementation.md)
+
+Technical overview of Belvedere's architecture and implementation. Covers:
+- Project structure and core components
+- Dependencies and technology stack
+- Testing and performance characteristics
+- Cross-platform compatibility details
+- Future enhancement possibilities
+
+**Best for**: Developers interested in understanding the codebase.
+
+### [Changelog](changelog.md)
+
+Development notes and release history. Contains:
+- Feature additions and bug fixes by version
+- Development roadmap items
+- Historical implementation notes
+- Release planning information
+
+**Best for**: Users and developers tracking project progress.
 
 ## What is Belvedere?
 
@@ -88,19 +131,29 @@ We recommend the following path for learning Belvedere:
    - Create a simple rule
    - Get comfortable with the interface
 
-2. **Set Up**: Follow the [Installation Guide](installation.md) if not yet installed
+2. **Install**: Follow the [Installation Guide](installation.md) to set up Belvedere
    - Install Belvedere properly
    - Configure to run at startup
-   - Understand Windows 11 considerations
+   - Understand platform-specific considerations
 
-3. **Master It**: Explore the [Usage Guide](usage.md)
+3. **Run**: Use the [Running Guide](running.md) to get started
+   - Launch the application
+   - Understand the interface
+   - Configure initial settings
+
+4. **Master It**: Explore the [Usage Guide](usage.md)
    - Learn all rule types
    - Discover advanced features
    - Implement best practices
 
-4. **Troubleshoot**: Keep the [Troubleshooting Guide](troubleshooting.md) handy
+5. **Troubleshoot**: Keep the [Troubleshooting Guide](troubleshooting.md) handy
    - Quick reference for problems
    - Solutions to common issues
+
+6. **Develop**: For contributors, see the [Building Guide](building.md)
+   - Build from source
+   - Understand the architecture
+   - Contribute to development
 
 ## Need Help?
 
@@ -141,8 +194,10 @@ For older versions, some features or instructions may differ.
 
 ### Related Documentation
 
-- **Running Belvedere**: See [PYTHON_VERSION.md](../PYTHON_VERSION.md) in the repository root for platform-specific information
-- **Implementation Details**: See [IMPLEMENTATION_SUMMARY.md](../IMPLEMENTATION_SUMMARY.md) for technical details
+- **Main Project README**: See [README.md](../README.md) in the repository root for project overview
+- **Running Belvedere**: See [Running Guide](running.md) for platform-specific information
+- **Implementation Details**: See [Implementation Summary](implementation.md) for technical details
+- **Building Instructions**: See [Building Guide](building.md) for development setup
 
 ## Quick Reference
 
